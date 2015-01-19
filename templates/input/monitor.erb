@@ -1,6 +1,7 @@
 <% @path.each do |p| %>[monitor://<%= p %>]
 <% if @host %>  host=<%= @host %>
 <% end %><% if @index %>    index=<%= @index %>
+<% end %><% if @tcp_routing %>    _TCP_ROUTING=<%= @tcp_routing %>
 <% end %><% if @source %>   source=<%= @source %>
 <% end %><% if @sourcetype %>   sourcetype=<%= @sourcetype %>
 <% end %><% if @queue %>    queue=<%= @queue %>

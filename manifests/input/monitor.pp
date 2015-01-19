@@ -3,6 +3,7 @@
 define splunk::input::monitor ( $path,
   $host               = undef,
   $index              = undef,
+  $tcp_routing        = undef,
   $source             = undef,
   $sourcetype         = undef,
   $queue              = undef,

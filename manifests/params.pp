@@ -25,6 +25,10 @@ class splunk::params {
 
   $forward_server = ''
 
+  $forward_method = 'autobalance'
+
+  $disable_default_forward_group = false
+
   $deployment_server = ''
 
   $monitor_path = ''
@@ -42,6 +46,9 @@ class splunk::params {
 
   $protocol = 'tcp'
 
+  $config_file_owner = 'root'
+
+  $config_file_group = 'root'
 
   ### General variables that affect module's behaviour
   # They can be set at top scope level or in a ENC

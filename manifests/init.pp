@@ -31,6 +31,12 @@
 #   If you want to forward to more than one servers, use an array.
 #   Example: [ "splunk1.example42.com:9997" , "splunk2.example42.com:9997" ]
 #
+# [*forward_method*]
+#   method set forwarding method to data-cloning or load-balancing (clone|autobalance, default=autobalance)
+#
+# [*disable_default_forward_group*]
+#   Set to true disabled the default forwarding group from outputs.conf. Default false
+#
 # [*deployment_server*]
 #   The server to receieve apps from. MUST be in host:port format
 #   Example: "splunk1.example42.com:8089"
@@ -195,6 +201,8 @@ class splunk (
   $install_source     = params_lookup('install_source'),
   $admin_password     = params_lookup('admin_password'),
   $forward_server     = params_lookup('forward_server'),
+  $forward_method     = params_lookup('forward_method'),
+  $disable_default_forward_group     = params_lookup('disable_default_forward_group'),
   $deployment_server  = params_lookup('deployment_server'),
   $monitor_path       = params_lookup('monitor_path'),
   $monitor_sourcetype = params_lookup('monitor_sourcetype'),
@@ -221,7 +229,9 @@ class splunk (
   $debug              = params_lookup( 'debug' , 'global' ),
   $audit_only         = params_lookup( 'audit_only' , 'global' ),
   $port               = params_lookup('port'),
-  $protocol           = params_lookup('protocol')
+  $protocol           = params_lookup('protocol'),
+  $config_file_owner  = params_lookup('config_file_owner'),
+  $config_file_group  = params_lookup('config_file_group'),
   ) inherits splunk::params {
 
   # Module's internal variables
@@ -242,8 +252,6 @@ class splunk (
   $process_args = ''
   $config_dir = "${splunk::basedir}/etc/"
   $config_file_mode = '0644'
-  $config_file_owner = 'root'
-  $config_file_group = 'root'
   $pid_file = "${splunk::basedir}/var/run/splunk/splunkd.pid"
   $data_dir = "${splunk::basedir}/var/lib/splunk"
   $log_dir = "${splunk::basedir}/var/log/splunk"
